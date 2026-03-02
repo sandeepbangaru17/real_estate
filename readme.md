@@ -1,301 +1,285 @@
-📄 README.md
-# 🏡 Interactive Real Estate Visualization Platform
+# Real Estate Visualization Platform
 
-A modern real estate web application where users can:
+A full-stack real estate web application where users can view lands, explore subdivided plots on an interactive map, and visualize properties in 3D.
 
-1. View lands (fields)
-2. Click a land to see subdivided plots
-3. Click a plot to view its **3D visualization**
+## Features
 
-This is a **full-stack project** built using **React + Node.js + Maps + Three.js + Entire.io workflow**.
+- **User Authentication** - JWT-based login system
+- **Lands Management** - View and manage land properties
+- **Interactive Maps** - Leaflet-based map with polygon overlays
+- **Plot Management** - Subdivided plots with availability status
+- **3D Visualization** - Three.js powered property previews
+- **REST API** - Complete backend API
+- **MCP Server** - AI assistant integration via Model Context Protocol
+- **CLI Client** - Command-line interface for data management
 
----
+## Tech Stack
 
-# 🚀 Features
-
-✅ User Authentication (JWT)  
-✅ View all Lands (Fields)  
-✅ Click Land → View subdivided plots  
-✅ Click Plot → View 3D model  
-✅ Map-based visualization using polygons  
-✅ Plot availability status (Available / Sold)  
-✅ 3D preview using Three.js  
-
----
-
-# 🧠 System Flow
-
-Login → Lands List → Click Land → View Plots → Click Plot → 3D Visualization
-
----
-
-# 🏗️ Tech Stack
-
-## Frontend
-- React.js
+### Frontend
+- React 18
+- Vite
 - Tailwind CSS
-- Leaflet.js (Map rendering)
-- React Three Fiber / Three.js (3D rendering)
+- Leaflet.js (Maps)
+- React Three Fiber / Three.js (3D)
+- React Router DOM
 
-## Backend
+### Backend
 - Node.js
 - Express.js
+- Sequelize (SQLite)
+- JWT Authentication
 
-## Database
-- MongoDB (Mongoose)
+### Additional
+- MCP Server (AI Integration)
+- CLI Client
+- Mintlify Documentation
 
-## 3D Assets
-- `.glb` / `.gltf` models (Blender / Sketchfab)
+## Project Structure
 
----
-
-# 📁 Project Structure
-
-
-realestate-app/
+```
+real_estate/
+├── backend/              # Express.js API server
+│   ├── config/          # Database configuration
+│   ├── models/          # Sequelize models
+│   ├── routes/         # API endpoints
+│   └── server.js       # Server entry point
 │
-├── frontend/
-│ ├── src/
-│ │ ├── pages/
-│ │ │ ├── LandsPage.jsx
-│ │ │ ├── PlotsPage.jsx
-│ │ │ └── Plot3DPage.jsx
-│ │ │
-│ │ ├── components/
-│ │ │ ├── MapView.jsx
-│ │ │ ├── PlotCard.jsx
-│ │ │ └── ThreeViewer.jsx
-│ │
-│ └── package.json
+├── frontend/            # React application
+│   ├── src/
+│   │   ├── components/ # Reusable components
+│   │   │   ├── MapView.jsx
+│   │   │   └── ThreeViewer.jsx
+│   │   ├── pages/      # Page components
+│   │   │   ├── LandsPage.jsx
+│   │   │   ├── PlotsPage.jsx
+│   │   │   ├── Plot3DPage.jsx
+│   │   │   └── LoginPage.jsx
+│   │   ├── App.jsx
+│   │   └── main.jsx
+│   └── package.json
 │
-├── backend/
-│ ├── models/
-│ │ ├── Land.js
-│ │ ├── Plot.js
-│ │ └── Plot3D.js
-│ │
-│ ├── routes/
-│ │ ├── lands.js
-│ │ ├── plots.js
-│ │ └── plot3d.js
-│ │
-│ ├── controllers/
-│ └── server.js
+├── cli/                # Node.js CLI client
+│   └── src/
+│       ├── commands/   # CLI commands
+│       ├── utils/      # API utilities
+│       └── index.js    # CLI entry point
 │
-└── README.md
+├── mcp-server/         # MCP Server for AI
+│   ├── src/
+│   │   └── index.js   # MCP server implementation
+│   └── docs/           # Mintlify documentation
+│
+└── readme.md
+```
 
+## Getting Started
 
----
+### Prerequisites
 
-# 🧾 Database Schema
+- Node.js 18+
+- npm or yarn
 
-## 🟢 Land
+### Installation
 
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd real_estate
+   ```
 
-{
-name: String,
-location: String,
-total_area: Number,
-coordinates: [ [lat, lng], ... ]
-}
+2. **Set up the backend**
+   ```bash
+   cd backend
+   npm install
+   npm start
+   ```
+   Backend runs on `http://localhost:5000`
 
+3. **Set up the frontend**
+   ```bash
+   cd frontend
+   npm install
+   npm run dev
+   ```
+   Frontend runs on `http://localhost:3000`
 
-## 🟡 Plot
+### Demo Credentials
 
+- Email: `admin@realestate.com`
+- Password: `admin123`
 
-{
-land_id: ObjectId,
-plot_number: String,
-area: Number,
-coordinates: [ [lat, lng], ... ],
-status: "available" | "sold"
-}
+## API Endpoints
 
+### Lands
 
-## 🔵 Plot3D
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/lands` | Get all lands |
+| GET | `/api/lands/:id` | Get land by ID |
+| POST | `/api/lands` | Create land |
+| PUT | `/api/lands/:id` | Update land |
+| DELETE | `/api/lands/:id` | Delete land |
 
+### Plots
 
-{
-plot_id: ObjectId,
-model_url: String,
-dimensions: {
-width: Number,
-length: Number,
-height: Number
-}
-}
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/plots/land/:landId` | Get plots by land |
+| GET | `/api/plots/:id` | Get plot by ID |
+| POST | `/api/plots` | Create plot |
+| PUT | `/api/plots/:id` | Update plot |
+| DELETE | `/api/plots/:id` | Delete plot |
 
+### Plot 3D
 
----
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/plot/:plotId` | Get 3D model |
+| POST | `/api/` | Create 3D model |
+| PUT | `/api/:id` | Update 3D model |
 
-# 🔌 API Endpoints
+## MCP Server
 
-## Lands
+The MCP (Model Context Protocol) server provides AI assistants with access to the Real Estate API.
 
+### Setup
 
-GET /api/lands
-GET /api/lands/:id
-
-
-## Plots
-
-
-GET /api/lands/:landId/plots
-GET /api/plots/:id
-
-
-## Plot 3D
-
-
-GET /api/plots/:id/3d
-
-
----
-
-# 🗺️ Map Visualization (Leaflet)
-
-Example:
-
-```js
-L.polygon(land.coordinates).addTo(map)
-
-L.polygon(plot.coordinates).on('click', () => {
-   openPlot(plot.id)
-})
-🧊 3D Plot Visualization (Three.js)
-
-Example:
-
-const geometry = new THREE.BoxGeometry(width, height, depth)
-const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 })
-const mesh = new THREE.Mesh(geometry, material)
-scene.add(mesh)
-
-3D Model path example:
-
-/models/plot1.glb
-⚙️ Installation Guide
-1️⃣ Clone Repository
-git clone <your_repo_url>
-cd realestate-app
-2️⃣ Backend Setup
-cd backend
+```bash
+cd mcp-server
 npm install
-
-Create .env file:
-
-PORT=5000
-MONGO_URI=your_mongodb_connection_string
-JWT_SECRET=your_secret_key
-
-Run backend:
-
 npm start
-3️⃣ Frontend Setup
-cd frontend
+```
+
+### Available Tools (13)
+
+**Lands:**
+- `list_lands` - Get all lands
+- `get_land` - Get land by ID
+- `create_land` - Create new land
+- `update_land` - Update land
+- `delete_land` - Delete land
+
+**Plots:**
+- `list_plots` - Get plots by land
+- `get_plot` - Get plot by ID
+- `create_plot` - Create new plot
+- `update_plot` - Update plot
+- `delete_plot` - Delete plot
+
+**3D Models:**
+- `get_plot3d` - Get 3D model
+- `create_plot3d` - Create 3D model
+- `update_plot3d` - Update 3D model
+
+### Documentation
+
+MCP Server documentation is available in `mcp-server/docs/`
+
+To view with Mintlify (requires Node.js 20+):
+```bash
+cd mcp-server
+npx mintlify dev
+```
+
+## CLI Client
+
+A command-line interface for managing lands and plots.
+
+### Setup
+
+```bash
+cd cli
 npm install
-npm run dev
-🌍 Deployment
+npm link
+```
 
-Frontend:
+### Usage
 
-Vercel / Netlify
+```bash
+re-cli
+```
 
-Backend:
+Options:
+- List/Create/Update/Delete lands
+- List/Create/Update/Delete plots
+- Import/Export data as JSON
 
-Render / Railway
+## Environment Variables
 
-Database:
+### Backend (.env)
+```env
+PORT=5000
+MONGO_URI=mongodb://localhost:27017/realestate
+JWT_SECRET=your_secret_key
+```
 
-MongoDB Atlas
+### Frontend
+Configure API proxy in `vite.config.js`
 
-🧪 Development Phases
-🟢 Phase 1 (MVP)
+### MCP Server (.env)
+```env
+API_URL=http://localhost:5000/api
+```
 
-Authentication
+## System Flow
 
-Lands listing
+```
+Login → Lands List → Click Land → View Plots → Click Plot → 3D Visualization
+```
 
-Plots listing
+## Database Schema
 
-🟡 Phase 2
+### Land
+```javascript
+{
+  name: String,
+  location: String,
+  totalArea: Number,
+  coordinates: [[lat, lng], ...],
+  description: String,
+  imageUrl: String
+}
+```
 
-Map visualization
+### Plot
+```javascript
+{
+  landId: ObjectId,
+  plotNumber: String,
+  area: Number,
+  coordinates: [[lat, lng], ...],
+  status: "available" | "sold",
+  price: Number,
+  dimensions: { width, length }
+}
+```
 
-Polygon drawing
+### Plot3D
+```javascript
+{
+  plotId: ObjectId,
+  modelUrl: String,
+  dimensions: { width, length, height },
+  houseModel: String,
+  colors: { wall, roof, ground }
+}
+```
 
-🔵 Phase 3
+## Future Enhancements
 
-3D plot rendering
+- Compass direction (North-facing plots)
+- Area measurement tool
+- Sunlight & shadow simulation
+- House construction preview
+- VR walkthrough
+- Booking system
+- Payment integration
 
-🔴 Phase 4 (Advanced)
-
-House models
-
-Virtual walkthrough
-
-Booking system
-
-Razorpay integration
-
-🧰 Entire.io Workflow (IMPORTANT)
-
-This project uses Entire.io to manage commits and generate explanations.
-
-Initialize Entire
-entire init
-Create Checkpoint
-entire checkpoint "initial setup"
-Explain Commit
-entire explain --commit <commit_id>
-Explain Checkpoint
-entire explain --checkpoint <checkpoint_id>
-Recommended Workflow
-git add .
-git commit -m "Added plots API"
-entire checkpoint "plots api completed"
-🧠 Future Enhancements
-
-Compass direction (North-facing plots)
-
-Area measurement tool
-
-Sunlight & shadow simulation
-
-House construction preview
-
-VR walkthrough of property
-
-👨‍💻 Author
-
-Sandeep Bangaru
-
-Full Stack Developer | Real Estate Tech Builder 🚀
-
-⭐ Final Vision
-
-Build a next-generation real estate platform where users can explore land, plots, and property in interactive 3D before buying.
-
-📢 Contribution
-
-Pull requests are welcome. For major changes, open an issue first.
-
-📄 License
+## License
 
 MIT License
 
+## Author
 
----
-
-✅ You can now **copy this entire README and paste it into your project**
-
----
-
-If you want next, I can generate:
-
-- backend starter code
-- frontend React pages
-- Leaflet map component
-- Three.js 3D viewer
-
-Just tell me 👍
+Sandeep Bangaru
+Full Stack Developer | Real Estate Tech Builder
