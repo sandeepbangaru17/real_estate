@@ -117,6 +117,54 @@ export async function deleteLand() {
   }
 }
 
+export async function importLands() {
+  const { filePath } = await inquirer.prompt([
+    { name: 'filePath', message: 'Enter JSON file path:', type: 'input' }
+  ]);
+
+  try {
+    const { readFileSync } = await import('fs');
+    const content = readFileSync(filePath, 'utf-8');
+    const lands = JSON.parse(content);
+
+    if (!Array.isArray(lands)) {
+      throw new Error('JSON file must contain an array of lands');
+    }
+
+    let success = 0;
+    let failed = 0;
+
+    for (const land of lands) {
+      try {
+        await landsApi.create(land);
+        success++;
+      } catch (err) {
+        failed++;
+        console.log(chalk.red(`Failed: ${land.name || land._id} - ${err.message}`));
+      }
+    }
+
+    console.log(chalk.green(`\nImported ${success} lands. Failed: ${failed}\n`));
+  } catch (err) {
+    console.log(chalk.red(`Error: ${err.message}`));
+  }
+}
+
+export async function exportLands() {
+  const { filePath } = await inquirer.prompt([
+    { name: 'filePath', message: 'Enter output JSON file path:', type: 'input' }
+  ]);
+
+  try {
+    const { data } = await landsApi.getAll();
+    const { writeFileSync } = await import('fs');
+    writeFileSync(filePath, JSON.stringify(data, null, 2));
+    console.log(chalk.green(`\nExported ${data.length} lands to ${filePath}\n`));
+  } catch (err) {
+    console.log(chalk.red(`Error: ${err.message}`));
+  }
+}
+
 export async function landsMenu() {
   const { action } = await inquirer.prompt([
     {
@@ -129,6 +177,8 @@ export async function landsMenu() {
         'Create new land',
         'Update land',
         'Delete land',
+        'Import lands from JSON',
+        'Export lands to JSON',
         'Back to main menu'
       ]
     }
@@ -149,6 +199,12 @@ export async function landsMenu() {
       break;
     case 'Delete land':
       await deleteLand();
+      break;
+    case 'Import lands from JSON':
+      await importLands();
+      break;
+    case 'Export lands to JSON':
+      await exportLands();
       break;
     case 'Back to main menu':
       return;

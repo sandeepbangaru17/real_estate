@@ -139,6 +139,62 @@ export async function deletePlot() {
   }
 }
 
+export async function importPlots() {
+  const { landId } = await inquirer.prompt([
+    { name: 'landId', message: 'Enter Land ID for these plots:', type: 'input' }
+  ]);
+
+  const { filePath } = await inquirer.prompt([
+    { name: 'filePath', message: 'Enter JSON file path:', type: 'input' }
+  ]);
+
+  try {
+    const { readFileSync } = await import('fs');
+    const content = readFileSync(filePath, 'utf-8');
+    const plots = JSON.parse(content);
+
+    if (!Array.isArray(plots)) {
+      throw new Error('JSON file must contain an array of plots');
+    }
+
+    let success = 0;
+    let failed = 0;
+
+    for (const plot of plots) {
+      try {
+        await plotsApi.create({ ...plot, landId });
+        success++;
+      } catch (err) {
+        failed++;
+        console.log(chalk.red(`Failed: ${plot.plotNumber || plot._id} - ${err.message}`));
+      }
+    }
+
+    console.log(chalk.green(`\nImported ${success} plots. Failed: ${failed}\n`));
+  } catch (err) {
+    console.log(chalk.red(`Error: ${err.message}`));
+  }
+}
+
+export async function exportPlots() {
+  const { landId } = await inquirer.prompt([
+    { name: 'landId', message: 'Enter Land ID:', type: 'input' }
+  ]);
+
+  const { filePath } = await inquirer.prompt([
+    { name: 'filePath', message: 'Enter output JSON file path:', type: 'input' }
+  ]);
+
+  try {
+    const { data } = await plotsApi.getByLand(landId);
+    const { writeFileSync } = await import('fs');
+    writeFileSync(filePath, JSON.stringify(data, null, 2));
+    console.log(chalk.green(`\nExported ${data.length} plots to ${filePath}\n`));
+  } catch (err) {
+    console.log(chalk.red(`Error: ${err.message}`));
+  }
+}
+
 export async function plotsMenu() {
   const { action } = await inquirer.prompt([
     {
@@ -151,6 +207,8 @@ export async function plotsMenu() {
         'Create new plot',
         'Update plot',
         'Delete plot',
+        'Import plots from JSON',
+        'Export plots to JSON',
         'Back to main menu'
       ]
     }
@@ -171,6 +229,12 @@ export async function plotsMenu() {
       break;
     case 'Delete plot':
       await deletePlot();
+      break;
+    case 'Import plots from JSON':
+      await importPlots();
+      break;
+    case 'Export plots to JSON':
+      await exportPlots();
       break;
     case 'Back to main menu':
       return;
