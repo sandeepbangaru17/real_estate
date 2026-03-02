@@ -1,0 +1,17 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "context7": {
+      "type": "remote",
+      "url": "https://mcp.context7.com/mcp"
+    },
+    "real-estate": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["./mcp-server/src/index.js"],
+      "env": {
+        "API_URL": "http://localhost:5000/api"
+      }
+    }
+  }
+}

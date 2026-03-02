@@ -1,0 +1,80 @@
+# Real Estate MCP Server
+
+A Model Context Protocol (MCP) server that provides AI assistants with access to your Real Estate API. This server exposes lands, plots, and 3D model data as MCP tools.
+
+## Features
+
+- **Lands Management** - Create, read, update, delete lands (properties/fields)
+- **Plots Management** - Manage individual plots within lands
+- **3D Models** - Handle 3D visualization data for plots
+- **REST API Integration** - Connects to your existing Real Estate backend
+
+## Prerequisites
+
+- Node.js 18+
+- Running Real Estate backend on port 5000
+
+## Installation
+
+```bash
+cd mcp-server
+npm install
+```
+
+## Configuration
+
+Create a `.env` file in the mcp-server directory:
+
+```env
+API_URL=http://localhost:5000/api
+```
+
+## Usage
+
+### Start the MCP Server
+
+```bash
+npm start
+```
+
+### Available Tools
+
+The MCP server provides the following tools:
+
+| Tool | Description |
+|------|-------------|
+| `list_lands` | Get all lands |
+| `get_land` | Get a specific land by ID |
+| `create_land` | Create a new land |
+| `update_land` | Update an existing land |
+| `delete_land` | Delete a land |
+| `list_plots` | Get all plots for a land |
+| `get_plot` | Get a specific plot |
+| `create_plot` | Create a new plot |
+| `update_plot` | Update a plot |
+| `delete_plot` | Delete a plot |
+| `get_plot3d` | Get 3D model for a plot |
+| `create_plot3d` | Create 3D model data |
+| `update_plot3d` | Update 3D model data |
+
+## Architecture
+
+```
+┌─────────────────┐     ┌──────────────────┐     ┌─────────────────┐
+│   AI Assistant  │────▶│  MCP Server      │────▶│  Real Estate   │
+│  (ChatGPT/      │     │  (This Server)   │     │  Backend API   │
+│   Claude/etc)   │     │                  │     │  :5000         │
+└─────────────────┘     └──────────────────┘     └─────────────────┘
+```
+
+## Environment Variables
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `API_URL` | `http://localhost:5000/api` | Base URL of the Real Estate API |
+
+## Related
+
+- [Real Estate Backend](https://github.com/yourrepo/real_estate_backend)
+- [Real Estate Frontend](https://github.com/yourrepo/real_estate_frontend)
+- [Real Estate CLI](https://github.com/yourrepo/real_estate_cli)

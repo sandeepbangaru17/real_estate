@@ -1,0 +1,141 @@
+# Basic Usage Examples
+
+Here are some common workflows using the Real Estate MCP Server.
+
+## Example 1: List All Lands
+
+```json
+{
+  "name": "list_lands",
+  "arguments": {}
+}
+```
+
+## Example 2: Create a New Land
+
+```json
+{
+  "name": "create_land",
+  "arguments": {
+    "name": "Riverside Township",
+    "location": "Miyapur, Hyderabad",
+    "totalArea": 75000,
+    "coordinates": [[17.50, 78.40], [17.51, 78.40], [17.51, 78.41], [17.50, 78.41]],
+    "description": "Premium gated community near IT hub"
+  }
+}
+```
+
+## Example 3: Get Plots for a Land
+
+```json
+{
+  "name": "list_plots",
+  "arguments": {
+    "landId": "1"
+  }
+}
+```
+
+## Example 4: Create a Plot
+
+```json
+{
+  "name": "create_plot",
+  "arguments": {
+    "landId": "1",
+    "plotNumber": "C5",
+    "area": 2400,
+    "coordinates": [[17.385, 78.490], [17.386, 78.490], [17.386, 78.491], [17.385, 78.491]],
+    "status": "available",
+    "price": 2800000,
+    "dimensions": { "width": 40, "length": 60 }
+  }
+}
+```
+
+## Example 5: Mark Plot as Sold
+
+```json
+{
+  "name": "update_plot",
+  "arguments": {
+    "id": "3",
+    "status": "sold"
+  }
+}
+```
+
+## Example 6: Get 3D Model for a Plot
+
+```json
+{
+  "name": "get_plot3d",
+  "arguments": {
+    "plotId": "3"
+  }
+}
+```
+
+## Example 7: Create 3D Model for a Plot
+
+```json
+{
+  "name": "create_plot3d",
+  "arguments": {
+    "plotId": "3",
+    "dimensions": {
+      "width": 40,
+      "length": 60,
+      "height": 15
+    },
+    "houseModel": "villa",
+    "colors": {
+      "wall": "#fffef0",
+      "roof": "#8b0000",
+      "ground": "#228b22"
+    }
+  }
+}
+```
+
+## Example Workflow: Full Property Setup
+
+1. **Create a land**
+```json
+{
+  "name": "create_land",
+  "arguments": {
+    "name": "Oakwood Estate",
+    "location": "Kukatpally, Hyderabad",
+    "totalArea": 100000,
+    "coordinates": [[17.49, 78.39], [17.50, 78.39], [17.50, 78.40], [17.49, 78.40]]
+  }
+}
+```
+
+2. **Create multiple plots**
+```json
+{
+  "name": "create_plot",
+  "arguments": {
+    "landId": "1",
+    "plotNumber": "A1",
+    "area": 2500,
+    "coordinates": [[17.495, 78.395], [17.496, 78.395], [17.496, 78.396], [17.495, 78.396]],
+    "status": "available",
+    "price": 3000000
+  }
+}
+```
+
+3. **Create 3D visualization**
+```json
+{
+  "name": "create_plot3d",
+  "arguments": {
+    "plotId": "1",
+    "dimensions": { "width": 40, "length": 60, "height": 12 }
+  }
+}
+```

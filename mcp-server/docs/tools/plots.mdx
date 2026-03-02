@@ -1,0 +1,161 @@
+# Plots Tools
+
+Manage individual plots within lands.
+
+## list_plots
+
+Get all plots for a specific land.
+
+### Parameters
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `landId` | string | Yes | ID of the parent land |
+
+### Example
+
+```json
+{
+  "name": "list_plots",
+  "arguments": {
+    "landId": "1"
+  }
+}
+```
+
+### Response
+
+```json
+[
+  {
+    "id": 1,
+    "landId": "1",
+    "plotNumber": "A1",
+    "area": 2400,
+    "coordinates": [[17.382, 78.485], [17.383, 78.485], [17.383, 78.486], [17.382, 78.486]],
+    "status": "available",
+    "price": 2500000,
+    "dimensions": { "width": 40, "length": 60 }
+  }
+]
+```
+
+---
+
+## get_plot
+
+Get a specific plot by ID.
+
+### Parameters
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `id` | string | Yes | The ID of the plot |
+
+### Example
+
+```json
+{
+  "name": "get_plot",
+  "arguments": {
+    "id": "1"
+  }
+}
+```
+
+---
+
+## create_plot
+
+Create a new plot within a land.
+
+### Parameters
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `landId` | string | Yes | ID of the parent land |
+| `plotNumber` | string | Yes | Plot number/identifier |
+| `area` | number | Yes | Plot area in sq ft |
+| `coordinates` | array | Yes | Array of [lat, lng] pairs |
+| `status` | string | No | "available" or "sold" |
+| `price` | number | No | Plot price |
+| `dimensions` | object | No | { width, length } |
+
+### Example
+
+```json
+{
+  "name": "create_plot",
+  "arguments": {
+    "landId": "1",
+    "plotNumber": "B1",
+    "area": 3000,
+    "coordinates": [[17.382, 78.487], [17.383, 78.487], [17.383, 78.488], [17.382, 78.488]],
+    "status": "available",
+    "price": 3200000,
+    "dimensions": { "width": 40, "length": 75 }
+  }
+}
+```
+
+---
+
+## update_plot
+
+Update an existing plot.
+
+### Parameters
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `id` | string | Yes | ID of the plot to update |
+| `plotNumber` | string | No | Updated plot number |
+| `area` | number | No | Updated area |
+| `status` | string | No | "available" or "sold" |
+| `price` | number | No | Updated price |
+| `dimensions` | object | No | Updated dimensions |
+
+### Example
+
+```json
+{
+  "name": "update_plot",
+  "arguments": {
+    "id": "1",
+    "status": "sold",
+    "price": 2600000
+  }
+}
+```
+
+---
+
+## delete_plot
+
+Delete a plot by ID.
+
+### Parameters
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `id` | string | Yes | ID of the plot to delete |
+
+### Example
+
+```json
+{
+  "name": "delete_plot",
+  "arguments": {
+    "id": "1"
+  }
+}
+```
+
+### Response
+
+```json
+{
+  "success": true,
+  "message": "Plot deleted"
+}
+```

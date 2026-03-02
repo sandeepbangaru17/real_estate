@@ -1,0 +1,36 @@
+{
+  "$schema": "https://mintlify.com/schema.json",
+  "name": "Real Estate MCP Server",
+  "logo": {
+    "light": "/logo/light.svg",
+    "dark": "/logo/dark.svg"
+  },
+  "favicon": "/favicon.svg",
+  "navigation": [
+    {
+      "group": "Getting Started",
+      "pages": ["introduction", "quickstart"]
+    },
+    {
+      "group": "Tools",
+      "pages": [
+        "tools/lands",
+        "tools/plots",
+        "tools/plot3d"
+      ]
+    },
+    {
+      "group": "Examples",
+      "pages": ["examples/basic-usage"]
+    }
+  ],
+  "footerSocials": {
+    "github": "https://github.com/yourusername/real_estate"
+  },
+  "api": {
+    "baseUrl": "http://localhost:5000/api",
+    "auth": {
+      "type": "none"
+    }
+  }
+}

@@ -1,0 +1,130 @@
+# Plot3D Tools
+
+Manage 3D visualization data for plots.
+
+## get_plot3d
+
+Get 3D model data for a specific plot.
+
+### Parameters
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `plotId` | string | Yes | ID of the plot |
+
+### Example
+
+```json
+{
+  "name": "get_plot3d",
+  "arguments": {
+    "plotId": "1"
+  }
+}
+```
+
+### Response
+
+```json
+{
+  "id": 1,
+  "plotId": "1",
+  "modelUrl": "",
+  "dimensions": {
+    "width": 40,
+    "length": 60,
+    "height": 12
+  },
+  "houseModel": "basic",
+  "colors": {
+    "wall": "#f5f5dc",
+    "roof": "#8b4513",
+    "ground": "#228b22"
+  },
+  "createdAt": "2024-01-01T00:00:00.000Z"
+}
+```
+
+---
+
+## create_plot3d
+
+Create 3D model data for a plot.
+
+### Parameters
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `plotId` | string | Yes | ID of the plot |
+| `modelUrl` | string | No | URL to 3D model file (.glb/.gltf) |
+| `dimensions` | object | No | { width, length, height } |
+| `houseModel` | string | No | Type of house model |
+| `colors` | object | No | { wall, roof, ground } hex colors |
+
+### Example
+
+```json
+{
+  "name": "create_plot3d",
+  "arguments": {
+    "plotId": "1",
+    "modelUrl": "/models/house1.glb",
+    "dimensions": {
+      "width": 40,
+      "length": 60,
+      "height": 12
+    },
+    "houseModel": "basic",
+    "colors": {
+      "wall": "#f5f5dc",
+      "roof": "#8b4513",
+      "ground": "#228b22"
+    }
+  }
+}
+```
+
+---
+
+## update_plot3d
+
+Update 3D model data for a plot.
+
+### Parameters
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `id` | string | Yes | ID of the 3D model |
+| `modelUrl` | string | No | Updated model URL |
+| `dimensions` | object | No | Updated dimensions |
+| `houseModel` | string | No | Updated house model type |
+| `colors` | object | No | Updated colors |
+
+### Example
+
+```json
+{
+  "name": "update_plot3d",
+  "arguments": {
+    "id": "1",
+    "houseModel": "luxury",
+    "colors": {
+      "wall": "#ffffff",
+      "roof": "#2c3e50",
+      "ground": "#27ae60"
+    }
+  }
+}
+```
+
+### Default Values
+
+If not specified, the following defaults are used:
+
+```javascript
+{
+  dimensions: { width: 10, length: 10, height: 3 },
+  houseModel: 'basic',
+  colors: { wall: '#f5f5dc', roof: '#8b4513', ground: '#228b22' }
+}
+```

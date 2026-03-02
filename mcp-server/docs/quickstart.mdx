@@ -1,0 +1,67 @@
+# Quickstart
+
+Get up and running with the Real Estate MCP Server in minutes.
+
+## Step 1: Start the Backend
+
+Ensure your Real Estate backend is running:
+
+```bash
+cd backend
+npm install
+npm start
+```
+
+The API should be available at `http://localhost:5000/api`
+
+## Step 2: Install MCP Server
+
+```bash
+cd mcp-server
+npm install
+```
+
+## Step 3: Start the MCP Server
+
+```bash
+npm start
+```
+
+## Step 4: Connect to an AI Assistant
+
+Configure your AI assistant (ChatGPT, Claude, etc.) to connect to:
+
+```
+http://localhost:3000 (stdio)
+```
+
+## Verify Installation
+
+Test that the MCP server is working by calling a tool:
+
+```json
+{
+  "name": "list_lands",
+  "arguments": {}
+}
+```
+
+Expected response:
+
+```json
+[
+  {
+    "id": 1,
+    "name": "Green Valley Township",
+    "location": "Hyderabad, Telangana",
+    "totalArea": 50000,
+    "coordinates": [[17.38, 78.48], [17.39, 78.48], [17.39, 78.49], [17.38, 78.49]]
+  }
+]
+```
+
+## Next Steps
+
+- Explore available [Lands Tools](/tools/lands)
+- Learn about [Plots Management](/tools/plots)
+- Configure [3D Models](/tools/plot3d)

@@ -1,0 +1,153 @@
+# Lands Tools
+
+Manage lands (properties/fields) in the Real Estate system.
+
+## list_lands
+
+Get all lands from the database.
+
+### Parameters
+
+None required.
+
+### Example
+
+```json
+{
+  "name": "list_lands",
+  "arguments": {}
+}
+```
+
+### Response
+
+```json
+[
+  {
+    "id": 1,
+    "name": "Green Valley Township",
+    "location": "Hyderabad, Telangana",
+    "totalArea": 50000,
+    "coordinates": [[17.38, 78.48], [17.39, 78.48], [17.39, 78.49], [17.38, 78.49]],
+    "description": "A beautiful township",
+    "createdAt": "2024-01-01T00:00:00.000Z"
+  }
+]
+```
+
+---
+
+## get_land
+
+Get a specific land by ID.
+
+### Parameters
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `id` | string | Yes | The ID of the land |
+
+### Example
+
+```json
+{
+  "name": "get_land",
+  "arguments": {
+    "id": "1"
+  }
+}
+```
+
+---
+
+## create_land
+
+Create a new land.
+
+### Parameters
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `name` | string | Yes | Name of the land |
+| `location` | string | Yes | Location address |
+| `totalArea` | number | Yes | Total area in sq ft |
+| `coordinates` | array | Yes | Array of [lat, lng] pairs |
+| `description` | string | No | Description |
+| `imageUrl` | string | No | URL to land image |
+
+### Example
+
+```json
+{
+  "name": "create_land",
+  "arguments": {
+    "name": "Sunrise Gardens",
+    "location": "Banjara Hills, Hyderabad",
+    "totalArea": 35000,
+    "coordinates": [[17.40, 78.44], [17.41, 78.44], [17.41, 78.45], [17.40, 78.45]],
+    "description": "Luxury plots in the heart of the city"
+  }
+}
+```
+
+---
+
+## update_land
+
+Update an existing land.
+
+### Parameters
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `id` | string | Yes | ID of the land to update |
+| `name` | string | No | Updated name |
+| `location` | string | No | Updated location |
+| `totalArea` | number | No | Updated area |
+| `description` | string | No | Updated description |
+| `imageUrl` | string | No | Updated image URL |
+
+### Example
+
+```json
+{
+  "name": "update_land",
+  "arguments": {
+    "id": "1",
+    "name": "Updated Valley Township",
+    "totalArea": 55000
+  }
+}
+```
+
+---
+
+## delete_land
+
+Delete a land by ID.
+
+### Parameters
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `id` | string | Yes | ID of the land to delete |
+
+### Example
+
+```json
+{
+  "name": "delete_land",
+  "arguments": {
+    "id": "1"
+  }
+}
+```
+
+### Response
+
+```json
+{
+  "success": true,
+  "message": "Land deleted"
+}
+```
