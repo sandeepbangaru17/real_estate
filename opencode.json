@@ -5,7 +5,7 @@
       "type": "remote",
       "url": "https://mcp.context7.com/mcp"
     },
-    "real-estate": {
+    "real_estate": {
       "type": "stdio",
       "command": "node",
       "args": ["./mcp-server/src/index.js"],

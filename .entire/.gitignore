@@ -1,4 +1,4 @@
-tmp/
+# Entire local files (not committed)
 settings.local.json
-metadata/
+tmp/
 logs/
